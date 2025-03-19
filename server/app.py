@@ -14,6 +14,23 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
+@app.route('/pets/<int:id>')
+def index():
+    response = make_response(
+        '<h1>Welcome to the pet directory!</h1>',
+        200
+    )
+    return response
+
+@app.route('/pets/<int:id>')
+def pet_by_id(id):
+    pet = Pet.query.filter(Pet.id == id).first()
+    response_body = f'<p>{pet.name} {pet.species}</p>'
+
+    response = make_response(response_body, 200)
+
+    return response
+
 # add views here 
 
 if __name__ == '__main__':
